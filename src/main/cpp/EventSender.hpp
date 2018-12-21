@@ -4,6 +4,7 @@
 #include <algorithm>
 #include <map>
 #include <vector>
+#include <typeinfo>
 #include "EventGeneric.hpp"
 #include "EventListener.hpp"
 
@@ -47,13 +48,19 @@ namespace Crisis {
         template<typename T, typename std::enable_if<std::is_base_of<Crisis::EventGeneric, T>::value>::type* = nullptr>
         bool sendEvent(T *event) {
             for (auto listener : this->listenerVector[event->type()]) {
-                listener->performTask();
+                auto _listener = reinterpret_cast<typeof(event->listenerType)> (listener);
+
+                // _listener->performTask(event);
+                this->performTask(_listener, event);
             }
 
-            return this->listenerVector.size() > 0;
+            return !this->listenerVector.empty();
         }
 
     private:
+        template<typename L, typename E>
+        void performTask(L listener, E event);
+
         std::map<std::string, std::vector<Crisis::EventListener *>> listenerVector;
     };
 }
