@@ -11,7 +11,7 @@ namespace Crisis {
             this->eventType = eventType;
         }
 
-        virtual std::string type() {
+        std::string type() {
             return eventType;
         }
 

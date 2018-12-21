@@ -8,5 +8,5 @@ add_library(crisis_src
 
         main/cpp/EventListener.hpp
 
-        main/cpp/EventSender.hpp main/cpp/EventSender.cpp)
+        main/cpp/EventSender.hpp)
 set_target_properties(crisis_src PROPERTIES LINKER_LANGUAGE CXX)

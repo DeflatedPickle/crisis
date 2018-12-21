@@ -50,17 +50,13 @@ namespace Crisis {
             for (auto listener : this->listenerVector[event->type()]) {
                 auto _listener = reinterpret_cast<typeof(event->listenerType)> (listener);
 
-                // _listener->performTask(event);
-                this->performTask(_listener, event);
+                _listener->performTask(event);
             }
 
             return !this->listenerVector.empty();
         }
 
     private:
-        template<typename L, typename E>
-        void performTask(L listener, E event);
-
         std::map<std::string, std::vector<Crisis::EventListener *>> listenerVector;
     };
 }
